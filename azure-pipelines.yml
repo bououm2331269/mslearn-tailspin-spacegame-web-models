@@ -34,5 +34,17 @@ steps:
     majorVersion: '1'
     minorVersion: '0'
     patchVersion: '0'
+    
+- bash: |
+    sudo apt-get update
+    sudo apt-get install -y mono-complete
+  displayName: 'Install Mono for nuget.exe on Ubuntu 24.04'
+- task: NuGetCommand@2
+  displayName: 'Publish NuGet package'
+  inputs:
+    command: push
+    feedPublish: '$(System.TeamProject)/Tailspin.SpaceGame.Web.Models'
+    allowPackageConflicts: true
+  condition: succeeded()
  
 
