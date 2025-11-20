@@ -1,5 +1,5 @@
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'ubuntu-22.04'
 
 variables:
   buildConfiguration: 'Release'
@@ -35,12 +35,11 @@ steps:
     minorVersion: '0'
     patchVersion: '0'
  
-- task: DotNetCoreCLI@2
+- task: NuGetCommand@2
   displayName: 'Publish NuGet package'
   inputs:
-    command: 'push'
-    packagesToPush: '$(Build.SourcesDirectory)/**/*.nupkg'
-    publishVstsFeed: 'Tailspin.SpaceGame.Web.Models'
+    command: push
+    feedPublish: '$(System.TeamProject)/Tailspin.SpaceGame.Web.Models'
     allowPackageConflicts: true
   condition: succeeded()
 
