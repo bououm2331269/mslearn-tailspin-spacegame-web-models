@@ -10,7 +10,12 @@ steps:
   displayName: 'Use .NET SDK $(dotnetSdkVersion)'
   inputs:
     version: '$(dotnetSdkVersion)'
-
+    
+- bash: |
+    sudo apt-get update
+    sudo apt-get install -y mono-complete
+  displayName: 'Install Mono for nuget.exe on Ubuntu 24.04'
+    
 - task: DotNetCoreCLI@2
   displayName: 'Restore project dependencies'
   inputs:
